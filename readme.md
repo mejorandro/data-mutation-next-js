@@ -1,155 +1,189 @@
-# 🚀 Next.js Full-Stack Course Project
 
-Welcome!\
-This project was built as part of a hands-on **Next.js Full-Stack
-Mastery Course**, where we learned how to build modern, production-ready
-applications using Next.js and React.
+# Data Mutation in Next.js 15
+## Course Notes & Practice Summary
 
-------------------------------------------------------------------------
+---
 
-## 📚 About This Project
+## Module Introduction (1:11)
+Explore data mutation in Next.js 15 by learning how to create and update data using Server Actions.  
+Understand how to fetch and store data on the server from external APIs or your own database.
 
-This repository demonstrates:
+**What I Practiced:**
+- Understanding mutation vs fetching
+- Using Server Actions for backend logic
+- Server-side execution patterns in Next.js 15
 
--   Building full-stack applications with Next.js
--   Using the App Router
--   Server-side rendering (SSR)
--   File-system routing
--   Data fetching strategies
--   Form handling
--   Blending client and server components
+---
 
-The goal was not just to learn syntax --- but to understand how modern
-React applications are built in real-world environments.
+## Starting Project & Analyzing Mutation Options (5:46)
+Created a new Next.js 15 project and ran it locally.  
+Built a post submission form that saves data into a SQLite database via Server Actions.
 
-------------------------------------------------------------------------
+**What I Practiced:**
+- Project setup
+- App Router fundamentals
+- Connecting SQLite database
+- Handling form submissions
 
-## 🧠 What is Next.js?
+---
 
-Next.js is a full-stack React framework that extends React with powerful
-features like:
+## Setting Up A Form Action (9:19)
+Configured form actions in Next.js and React using `formData`.  
+Handled input names like `title`, `image`, and `content`.
 
--   Server-Side Rendering (SSR)
--   Static Site Generation (SSG)
--   API Routes
--   Server Components
--   Server Actions
--   File-based routing
--   Optimized SEO performance
+**What I Practiced:**
+- Using `formAction`
+- Extracting form data
+- Structuring form components properly
 
-Unlike "just React", Next.js allows you to build complete applications
-(frontend + backend) inside one framework.
+---
 
-------------------------------------------------------------------------
+## Creating a Server Action (4:16)
+Converted a client form action into a server action using `"use server"` and async functions.
 
-## 🔥 Key Features Used
+**What I Practiced:**
+- Adding `"use server"`
+- Moving logic to server
+- Handling async submissions
 
--   App Router (/app directory structure)
--   Server Components
--   Dynamic routing
--   Data fetching on the server
--   Built-in performance optimizations
--   Full-stack architecture
+---
 
-------------------------------------------------------------------------
+## Storing Data in Databases (4:39)
+Stored posts in SQLite by creating a post object with:
+- image URL
+- title
+- content
+- user id
 
-## 🏗️ Project Setup
+Validated persistence via `getPosts()` in the feed page.
 
-### 1️⃣ Create a Next.js App
+**What I Practiced:**
+- Constructing DB models
+- Writing insert queries
+- Fetching and validating stored data
 
-``` bash
-npx create-next-app@latest
-```
+---
 
-During setup: - Choose App Router - Enable ESLint - Choose TypeScript
-(optional)
+## Providing User Feedback with useFormStatus (6:04)
+Used `useFormStatus` to:
+- Show loading state
+- Disable button during submission
+- Redirect to `/feed` after successful post
 
-------------------------------------------------------------------------
+**What I Practiced:**
+- UX improvement during async operations
+- Handling pending states
 
-### 2️⃣ Install Dependencies
+---
 
-``` bash
-npm install
-```
+## Using useFormState Hook (Validation) (9:57)
+Implemented client and server-side validation using `useFormState`.
 
-------------------------------------------------------------------------
+**What I Practiced:**
+- Returning structured error objects
+- Displaying inline validation messages
+- Validating before database insert
 
-### 3️⃣ Run Development Server
+---
 
-``` bash
-npm run dev
-```
+## Adjusting Server Actions for useFormState (7:40)
+Refactored the form into a separate `PostForm` component.  
+Passed server actions via props and handled updated `formData` arguments.
 
-Visit: http://localhost:3000
+**What I Practiced:**
+- Component separation
+- Clean architecture
+- Real-time error feedback patterns
 
-------------------------------------------------------------------------
+---
 
-## 📂 Project Structure
+## Storing Server Actions In Separate Files (3:57)
+Moved server actions to a dedicated `actions` file.
 
-/app\
-  page.js\
-  layout.js\
-  /awesome\
-    page.js
+**What I Practiced:**
+- Clean folder structure
+- Reusable server actions
+- Maintaining lean page components
 
-Example:
+---
 
-Create `app/awesome/page.js` and visit: http://localhost:3000/awesome
+## "use server" Does Not Guarantee Server-side Execution (0:30)
+Learned limitations and behavior of Server Actions.
 
-------------------------------------------------------------------------
+**Key Insight:**
+Understanding execution context is critical for security and architecture decisions.
 
-## ⚔️ Next.js vs React
+---
 
-  Feature              React              Next.js
-  -------------------- ------------------ ---------------------
-  Routing              React Router       File-based routing
-  Server Rendering     Manual setup       Built-in
-  SEO                  Limited            Optimized
-  Backend              Separate project   Built-in API routes
-  Full-Stack Support   No                 Yes
+## Uploading & Storing Images (8:13)
+Integrated Cloudinary for image uploads using environment variables.  
+Stored image URLs in the database.
 
-------------------------------------------------------------------------
+**What I Practiced:**
+- Cloudinary configuration
+- Handling file uploads
+- Environment variables setup
 
-## 🧩 Pages Router vs App Router
+---
 
-### Pages Router
+## Alternative Ways of Triggering Server Actions (11:00)
+Implemented a Like button using Server Actions.
 
--   Uses `/pages`
--   Traditional routing
+Included:
+- Hard-coded user ID
+- `isLiked` flag
+- `togglePostLikeStatus` logic
 
-### App Router
+**What I Practiced:**
+- Mutation without forms
+- Updating relational tables
+- Handling toggle logic
 
--   Uses `/app`
--   Supports:
-    -   React Server Components
-    -   Server Actions
-    -   Nested layouts
-    -   Streaming
+---
 
-This project uses the App Router.
+## Revalidating Data To Avoid Caching Problems (4:45)
+Used `revalidatePath` to refresh the `/feed` route after mutations.
 
-------------------------------------------------------------------------
+**What I Practiced:**
+- Understanding Next.js caching
+- Preventing stale UI
+- Manual revalidation strategies
 
-## 🛠️ What I Learned
+---
 
--   How server rendering improves performance & SEO
--   Secure data fetching
--   Proper form handling
--   Structuring scalable full-stack applications
--   Client vs server component architecture
+## Performing Optimistic Updates With NextJS (11:42)
+Implemented `useOptimistic` to:
+- Instantly update UI
+- Sync with server
+- Roll back if mutation fails
 
-------------------------------------------------------------------------
+**What I Practiced:**
+- Advanced UX patterns
+- Optimistic UI updates
+- Error handling rollback
 
-## 👨‍💻 Author
+---
 
-Alejandro Bermúdez\
-Tech Lead & Full-Stack Developer
+## Caching Differences: Development vs Production (6:13)
+Explored how production builds cache data differently from development mode.
 
-------------------------------------------------------------------------
+**What I Practiced:**
+- Running production build
+- Testing revalidation behavior
+- Understanding pre-rendered pages
 
-## ⭐ Final Thoughts
+---
 
-This project represents understanding how modern full-stack React
-applications are built using Next.js.
+# Final Learning Summary
 
-Next step: Deploy to production 🚀
+Through this project I built:
+
+- Full mutation flow with Server Actions
+- SQLite integration
+- Image upload with Cloudinary
+- Validation patterns
+- Optimistic updates
+- Cache revalidation
+- Production caching awareness
+
+This course strengthened my full-stack Next.js 15 skills and deepened my understanding of modern mutation architecture.
